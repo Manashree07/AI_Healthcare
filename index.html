@@ -4,33 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI_Healthcare</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Montserrat:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Nunito', sans-serif;
     }
 
     body, html {
       height: 100%;
-      background: linear-gradient(135deg, #a0003d, #d50064); /* Cherry color gradient */
+      background: linear-gradient(to right, #ffcccc, #ffe6e6);
       color: white;
+      scroll-behavior: smooth;
     }
 
     header {
-      background-color: rgba(0,0,0,0.6);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      background-color: rgba(0,0,0,0.4);
       color: white;
       text-align: center;
       padding: 1rem;
       font-size: 2rem;
       animation: fadeInDown 1s ease-in-out;
-      background-image: url('healthcare.png'); /* Add logo as header background */
+      background-image: url('healthcare.png');
       background-size: contain;
       background-repeat: no-repeat;
       background-position: left;
       background-position-x: 20cap;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
     }
 
     nav {
@@ -43,21 +48,41 @@
 
     nav a {
       text-decoration: none;
-      color: #fff;
+      color: #e63946;
       font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #1f1c1c;
+    }
+
+    .welcome-message {
+      text-align: center;
+      font-size: 1.5rem;
+      margin: 10px auto;
+      animation: fadeInUp 2s ease-in-out;
+      max-width: 80%;
+      color: #333;
     }
 
     section {
       padding: 2rem;
-      color: #fff;
+      color: #333;
       text-align: center;
-      animation: fadeInUp 1.5s ease-in-out;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-in-out;
+      display: none;
+    }
+
+    section.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
     }
 
     footer {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
       text-align: center;
       padding: 10px;
       background-color: rgba(0,0,0,0.5);
@@ -87,7 +112,7 @@
       width: 100%;
       padding: 10px;
       margin-top: 15px;
-      background-color: #a0003d; /* Cherry shade */
+      background-color: #e63946;
       color: white;
       border: none;
       border-radius: 5px;
@@ -99,7 +124,7 @@
       top: 10px;
       right: 20px;
       padding: 10px 15px;
-      background-color: #a0003d;
+      background-color: #e63946;
       color: white;
       border: none;
       border-radius: 5px;
@@ -140,20 +165,23 @@
     AI_Healthcare
   </header>
 
-  <nav>
-    <a href="#about">About Us</a>
-    <a href="#contact">Contact</a>
-  </nav>
-
   <div class="login-box" id="loginBox">
-    <h2 style="color:white;">Login</h2>
+    <h2 style="color:rgb(32, 29, 29);">Login</h2>
     <input type="text" id="username" placeholder="Enter Username">
     <input type="password" id="password" placeholder="Enter Password">
     <button onclick="login()">Login</button>
   </div>
 
+  <div class="welcome-message">
+    <p>Welcome to AI_Healthcare! Your virtual health assistant is here to help you book appointments, answer medical queries, and guide your healthcare journey.</p>
+  </div>
+
+  <nav>
+    <a href="#about" onclick="showSection('about')">About Us</a>
+    <a href="#contact" onclick="showSection('contact')">Contact</a>
+  </nav>
+
   <div class="chatbot-container" id="chatbot">
-    <!-- Dialogflow Messenger -->
     <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
     <df-messenger
       intent="WELCOME"
@@ -163,12 +191,12 @@
     </df-messenger>
   </div>
 
-  <section id="about">
+  <section id="about" class="anim-section">
     <h2>About Us</h2>
     <p>AI_Healthcare is an AI-powered chatbot assistant for booking doctor appointments, getting medical info, and more — accessible and efficient for every user.</p>
   </section>
 
-  <section id="contact">
+  <section id="contact" class="anim-section">
     <h2>Contact</h2>
     <p>Email: support@aihealthcare.com</p>
     <p>Phone: +91 9876543210</p>
@@ -196,6 +224,13 @@
       document.getElementById('loginBox').style.display = 'block';
       document.getElementById('chatbot').style.display = 'none';
       document.getElementById('signoutBtn').style.display = 'none';
+    }
+
+    function showSection(id) {
+      const sections = document.querySelectorAll('.anim-section');
+      sections.forEach(sec => sec.classList.remove('show'));
+      const selected = document.getElementById(id);
+      selected.classList.add('show');
     }
   </script>
 
