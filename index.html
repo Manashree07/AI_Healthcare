@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI_Healthcare</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      background: linear-gradient(135deg, #a0003d, #d50064); /* Cherry color gradient */
+      color: white;
+    }
+
+    header {
+      background-color: rgba(0,0,0,0.6);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      font-size: 2rem;
+      animation: fadeInDown 1s ease-in-out;
+      background-image: url('healthcare.png'); /* Add logo as header background */
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: left;
+      background-position-x: 20cap;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 20px 0;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    section {
+      padding: 2rem;
+      color: #fff;
+      text-align: center;
+      animation: fadeInUp 1.5s ease-in-out;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+      background-color: rgba(0,0,0,0.5);
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .login-box {
+      max-width: 300px;
+      margin: 30px auto;
+      padding: 20px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      background-color: #a0003d; /* Cherry shade */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .signout-button {
+      position: fixed;
+      top: 10px;
+      right: 20px;
+      padding: 10px 15px;
+      background-color: #a0003d;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      display: none;
+      cursor: pointer;
+      z-index: 100;
+    }
+
+    .chatbot-container {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      right: 20px;
+      z-index: 10;
+    }
+
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="signout-button" id="signoutBtn" onclick="signout()">Sign Out</button>
+
+  <header>
+    AI_Healthcare
+  </header>
+
+  <nav>
+    <a href="#about">About Us</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <div class="login-box" id="loginBox">
+    <h2 style="color:white;">Login</h2>
+    <input type="text" id="username" placeholder="Enter Username">
+    <input type="password" id="password" placeholder="Enter Password">
+    <button onclick="login()">Login</button>
+  </div>
+
+  <div class="chatbot-container" id="chatbot">
+    <!-- Dialogflow Messenger -->
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+    <df-messenger
+      intent="WELCOME"
+      chat-title="AI_Healthcare"
+      agent-id="2af255af-4abc-4c10-a45a-7a6b1821e43a"
+      language-code="en">
+    </df-messenger>
+  </div>
+
+  <section id="about">
+    <h2>About Us</h2>
+    <p>AI_Healthcare is an AI-powered chatbot assistant for booking doctor appointments, getting medical info, and more — accessible and efficient for every user.</p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Email: support@aihealthcare.com</p>
+    <p>Phone: +91 9876543210</p>
+  </section>
+
+  <footer>
+    &copy; 2025 AI_Healthcare. All rights reserved.
+  </footer>
+
+  <script>
+    function login() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      if(username && password) {
+        document.getElementById('loginBox').style.display = 'none';
+        document.getElementById('chatbot').style.display = 'block';
+        document.getElementById('signoutBtn').style.display = 'block';
+        alert("Login successful! Chatbot is now active.");
+      } else {
+        alert("Please enter both username and password.");
+      }
+    }
+
+    function signout() {
+      document.getElementById('loginBox').style.display = 'block';
+      document.getElementById('chatbot').style.display = 'none';
+      document.getElementById('signoutBtn').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
